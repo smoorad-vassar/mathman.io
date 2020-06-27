@@ -1,0 +1,43 @@
+.grid {
+  width: 30em;
+  height: 35em;
+  box-sizing: border-box;
+  line-height: 0px;
+  background-color: #0a1045;
+  display: inline-block;
+}
+
+@media screen and (max-width: 600px) {
+  .grid {
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .grid {
+    font-size: 20px;
+  }
+}
+
+.tile {
+  /* decide on size of the game board relative to screen. 
+     currently board is 60% of screen.*/
+  box-sizing: border-box;
+  line-height: 1em;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+}
+
+.tile_0 {
+  background-color: #0a1045;
+}
+.tile_1 {
+  background-color: #001188;
+}
+.tile_2 {
+  background-color: #0a1045;
+}
+.tile_3 {
+  background-color: red;
+}

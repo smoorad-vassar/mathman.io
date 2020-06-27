@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+  line-height: 1em;
+}
+
+.dot {
+  background-color: #f9e900;
+  border-radius: 50%;
+  width: 0.3em;
+  height: 0.3em;
+  top: 30%;
+  left: 30%;
+  position: relative;
+}

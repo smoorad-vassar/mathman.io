@@ -1,0 +1,122 @@
+.final__ghost {
+  z-index: 99;
+  position: relative;
+}
+
+.final__ghost::before,
+.final__ghost::after {
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  position: absolute;
+  border: solid 0.5em orange;
+}
+
+@media screen and (max-width: 600px) {
+  .final__ghost {
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .final__ghost {
+    font-size: 20px;
+  }
+}
+
+.final__ghost {
+  position: relative;
+  z-index: 110;
+  height: 1em;
+  width: 1em;
+  background-color: green;
+  display: block;
+  margin-top: -1em;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+}
+/* using these for eyes*/
+
+.final__ghost::before,
+.final__ghost::after {
+  content: "";
+  position: absolute;
+  background: white;
+  height: 0.4em;
+  width: 0.3em;
+  border-radius: 100%;
+  top: 0.25em;
+  left: 0.2em;
+}
+.final__ghost::after {
+  left: 0.6em;
+}
+*/ .final__eyes::before,
+.final__eyes::after {
+  content: "";
+  position: absolute;
+  background: orange;
+  height: 0.2em;
+  width: 0.2em;
+  border-radius: 100%;
+  top: 0.35em;
+  left: 0.25em;
+  z-index: 120;
+  animation: final__peeperLeft 0.8s linear infinite;
+}
+.final__eyes::after {
+  left: 0.65em;
+  animation: final__peeperRight 0.8s linear infinite;
+}
+*/ .final__skirt {
+  position: absolute;
+  height: 0;
+  width: 0;
+  border: solid 10px #333;
+  border-top-color: transparent;
+  bottom: -10px;
+}
+.final__skirt::after,
+.final__skirt::before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  border: solid 10px #333;
+  border-top-color: transparent;
+  bottom: -10px;
+  left: 10px;
+}
+.final__skirt::after {
+  border-color: #333;
+  border-top-color: transparent;
+  bottom: -10px;
+  left: 30px;
+}
+
+@keyframes final__peeperLeft {
+  0%,
+  100% {
+    left: 0.25em;
+  }
+  50% {
+    left: 0.28em;
+  }
+}
+
+@keyframes final__peeperRight {
+  0%,
+  100% {
+    left: 0.65em;
+  }
+  50% {
+    left: 0.68em;
+  }
+}
+
+@keyframes final__colourSwap {
+  50% {
+    background: hotpink;
+  }
+}

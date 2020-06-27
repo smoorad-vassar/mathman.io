@@ -1,0 +1,125 @@
+.final__pacman {
+  position: relative;
+  z-index: 99;
+  animation-delay: 0.8s;
+}
+
+.final__pacman_0::before,
+.final__pacman_0::after {
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  position: absolute;
+  border: solid 0.5em yellow;
+  border-radius: 50%;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  animation: final__mouthTop_horizontal 0.7s ease infinite;
+}
+
+.final__pacman_0::after {
+  border-color: yellow;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  animation: final__mouthBottom_horizontal 0.7s ease infinite;
+}
+
+.final__pacman_90::before,
+.final__pacman_90::after {
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  position: absolute;
+  border: solid 0.5em yellow;
+  border-radius: 50%;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  animation: final__mouthTop_vertical 0.7s ease infinite;
+}
+
+.final__pacman_90::after {
+  border-color: yellow;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  animation: final__mouthBottom_vertical 0.7s ease infinite;
+}
+
+.final__pacman_180::before,
+.final__pacman_180::after {
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  position: absolute;
+  border: solid 0.5em yellow;
+  border-radius: 50%;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  animation: final__mouthTop_horizontal 0.7s ease infinite;
+}
+
+.final__pacman_180::after {
+  border-color: yellow;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  animation: final__mouthBottom_horizontal 0.7s ease infinite;
+}
+
+.final__pacman_270::before,
+.final__pacman_270::after {
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  position: absolute;
+  border: solid 0.5em yellow;
+  border-radius: 50%;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  animation: final__mouthTop_vertical 0.7s ease infinite;
+}
+
+.final__pacman_270::after {
+  border-color: yellow;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  animation: final__mouthBottom_vertical 0.7s ease infinite;
+}
+
+@keyframes final__mouthTop_horizontal {
+  50% {
+    transform: rotate(40deg);
+  }
+}
+
+@keyframes final__mouthBottom_horizontal {
+  50% {
+    transform: rotate(-40deg);
+  }
+}
+
+@keyframes final__mouthTop_vertical {
+  50% {
+    transform: rotate(-40deg);
+  }
+}
+
+@keyframes final__mouthBottom_vertical {
+  50% {
+    transform: rotate(40deg);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .final__pacman {
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .final__pacman {
+    font-size: 20px;
+  }
+}
