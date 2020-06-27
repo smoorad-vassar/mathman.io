@@ -3,6 +3,7 @@ import playerReducer from "./Game/Player";
 import tilesReducer from "./Game/Tiles";
 import counterReducer from "./Game/Counter";
 import blinkyReducer from "./Game/Ghosts/Blinky";
+import blinkyDirectionReducer from "./Game/Ghosts/BlinkyDirection";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   counterReducer,
   blinkyReducer,
   playerReducer,
+  blinkyDirectionReducer,
 });
 
 export default rootReducer;

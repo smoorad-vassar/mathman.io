@@ -3,7 +3,7 @@ import { RIGHT, LEFT, TOP, BOTTOM } from "../../../constants";
 
 const blinkyReducer = (state = Blinky, action: any) => {
   switch (action.type) {
-    case "move":
+    case "moveBlinky":
       switch (state.degree) {
         case 0:
           return { ...state, left: +(state.left + 1 / 20).toFixed(2) };

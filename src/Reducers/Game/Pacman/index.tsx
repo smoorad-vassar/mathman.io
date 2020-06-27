@@ -13,9 +13,11 @@ const pacmanReducer = (state = Pacman, action: any) => {
           return { ...state, left: +(state.left - 1 / 20).toFixed(2) };
         case TOP:
           return { ...state, top: +(state.top + 1 / 20).toFixed(2) };
+        default:
+          return state
       }
-    case "changeDirection":
-      switch (action.payload.dir) {
+    case "changeDirectionPacman":
+      switch (action.payload.degree) {
         case RIGHT:
           return {
             ...state,
@@ -40,6 +42,8 @@ const pacmanReducer = (state = Pacman, action: any) => {
             top: +(state.top + 1 / 20).toFixed(2),
             degree: 90,
           };
+        default:
+          return state;
       }
     case "set":
       return action.payload.pacman;

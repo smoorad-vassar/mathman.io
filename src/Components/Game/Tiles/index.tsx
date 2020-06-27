@@ -12,6 +12,8 @@ import { moveGhost } from "../../../Logic/Game/Blinky";
 import { checkTurn } from "../../../Logic/Game/Player";
 import { RIGHT, LEFT, TOP, BOTTOM } from "../../../constants";
 import { setNextDirection } from "../../../Actions/Game/Player";
+import { changeDirection } from "../../../Actions/Game/Pacman";
+
 
 function Tiles(): JSX.Element {
   const tiles: Tile[][] = useSelector(
@@ -26,6 +28,9 @@ function Tiles(): JSX.Element {
   );
   const counter: number = useSelector(
     (state: RootStateOrAny) => state.counterReducer
+  );
+  const player: number = useSelector(
+    (state:RootStateOrAny) => state.playerReducer
   );
 
   const displayGrid = tiles.map((tilesRow) => (
@@ -54,53 +59,60 @@ function Tiles(): JSX.Element {
   ));
 
   React.useEffect(() => {
-    var nextDirection = 0;
     const interval = setInterval(() => {
-      counterLogic(counter, pacman, nextDirection, tiles, blinky, dispatch);
+      
       movePlayer(pacman, tiles, dispatch);
       moveGhost(blinky, tiles, dispatch);
+      counterLogic(counter, pacman, player, tiles, blinky, dispatch);
     }, 1000 / 60);
     return () => clearInterval(interval);
   });
 
   const changeDirectionWithKeys = (e: any) => {
     var { keyCode } = e;
+    
     switch (keyCode) {
       case 37:
         e.preventDefault();
         if (checkTurn(pacman, LEFT, tiles)) {
           dispatch(setNextDirection(LEFT));
         }
-        //   else {
-        //     dispatch(setNextDirection(pacman.degree));
-        //   }
+        // else {
+        //   dispatch(setNextDirection(player));
+        // }
         break;
       case 38:
         e.preventDefault();
         if (checkTurn(pacman, TOP, tiles)) {
+          console.log("kkkk", keyCode)
           dispatch(setNextDirection(TOP));
+          
         }
-        //   else {
-        //     dispatch(setNextDirection(pacman.degree));
-        //   }
+        // else {
+        //   dispatch(setNextDirection(player));
+        // }
         break;
       case 39:
         e.preventDefault();
         if (checkTurn(pacman, RIGHT, tiles)) {
+          console.log("kkkk", keyCode)
           dispatch(setNextDirection(RIGHT));
+          
         }
-        //   else {
-        //     dispatch(setNextDirection(pacman.degree));
-        //   }
+        // else {
+        //   dispatch(setNextDirection(player));
+        // }
         break;
       case 40:
         e.preventDefault();
         if (checkTurn(pacman, BOTTOM, tiles)) {
+          console.log("kkkk", keyCode)
           dispatch(setNextDirection(BOTTOM));
+          
         }
-        //   else {
-        //     dispatch(setNextDirection(pacman.degree));
-        //   }
+        // else {
+        //   dispatch(setNextDirection(player));
+        // }
         break;
     }
   };
@@ -109,9 +121,9 @@ function Tiles(): JSX.Element {
 
   return (
     <div className="grid">
-      {displayGrid}
       <Pacman top={pacman.top} left={pacman.left} degree={pacman.degree} />
       <Blinky top={blinky.top} left={blinky.left} degree={blinky.degree} />
+      {displayGrid}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-const counterReducer = (state = 0, action: any) => {
+const counterReducer = (state = 1, action: any) => {
   switch (action.type) {
     case "reset":
       return 0;

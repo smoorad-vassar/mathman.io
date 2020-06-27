@@ -1,6 +1,6 @@
 export const moveBlinky = () => {
   return {
-    type: "move",
+    type: "moveBlinky",
   };
 };
 

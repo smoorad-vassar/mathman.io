@@ -4,31 +4,43 @@ import { setNextDirection } from "../../Actions/Game/Player";
 import BlinkyAStar from "../../Algorithms/Ghosts/Blinky";
 import { IPacman, IGhost } from "../../Interfaces";
 import Tile from "../../Components/Game/Tiles/Tile";
-import { resetCounter } from "../../Actions/Game/Counter";
+import { incrementCounter, resetCounter } from "../../Actions/Game/Counter";
+import { changeDirection } from "../../Actions/Game/Pacman";
 
 export const counterLogic = (
   counter: number,
   pacman: IPacman,
-  nextDirection: number,
+  player: number,
   tiles: Tile[][],
   blinky: IGhost,
   dispatch: any
 ) => {
+  var pacTop = pacman.top;
+  var pacLeft = pacman.left;
+  var blinkyTop = blinky.top;
+  var blinkyLeft = blinky.left;
+  // console.log(counter)
   if (counter === 0) {
-    if (tiles[pacman.top][pacman.left].state === 2) {
-      dispatch(eatDot(pacman.top, pacman.left));
-      dispatch(setNextDirection(nextDirection));
+    // console.log(pacTop, pacLeft);
+    // console.log(tiles[pacTop][pacLeft].state);
+    if (tiles[pacTop][pacLeft].state === 2) {
+      dispatch(eatDot(pacTop, pacLeft));
     }
+  }
+  if (counter === 0){
+    console.log(blinkyTop, blinkyLeft);
     var degree = BlinkyAStar({
-      start: tiles[blinky.top][blinky.left],
+      start: tiles[blinkyTop][blinkyLeft],
       tiles: tiles,
-      target: tiles[pacman.top][pacman.left],
+      target: tiles[pacTop][pacLeft],
       blinky: blinky,
     });
     dispatch(changeBlinkyDirection(degree));
   }
+  dispatch(incrementCounter())
   if (counter === 19) {
+    dispatch(changeDirection(player))
     dispatch(resetCounter());
+    console.log("wtf");
   }
-  counter++;
 };

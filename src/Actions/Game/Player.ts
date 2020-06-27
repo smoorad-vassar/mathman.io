@@ -1,6 +1,6 @@
 export const setNextDirection = (degree: number) => {
   return {
-    type: "set",
+    type: "setDegree",
     payload: {
       degree,
     },

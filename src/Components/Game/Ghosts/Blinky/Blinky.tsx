@@ -1,5 +1,6 @@
 import { IGhostProps } from "../../../../Interfaces";
 import React from "react";
+import "../Ghost.css";
 
 function Blinky(props: IGhostProps): JSX.Element {
   return (
@@ -7,7 +8,7 @@ function Blinky(props: IGhostProps): JSX.Element {
       className="final__ghost"
       style={{ top: props.top + "em", left: props.left + "em" }}
     >
-      <div className="final__eyes"></div>
+      {/* <div className="final__eyes"></div> */}
     </div>
   );
 }

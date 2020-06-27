@@ -1,5 +1,6 @@
 import { IPacmanProps } from "../../../Interfaces";
 import React from "react";
+import "./Pacman.css";
 
 function Pacman(props: IPacmanProps): JSX.Element {
   return (

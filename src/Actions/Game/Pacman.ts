@@ -8,7 +8,7 @@ export const movePacman = () => {
 
 export const changeDirection = (degree: number) => {
   return {
-    type: "move",
+    type: "changeDirectionPacman",
     payload: {
       degree,
     },
