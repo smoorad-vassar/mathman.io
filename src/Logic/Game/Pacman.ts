@@ -3,6 +3,7 @@ import { movePacman, setPacman } from "../../Actions/Game/Pacman";
 import { resetCounter } from "../../Actions/Game/Counter";
 import { IPacman } from "../../Interfaces";
 import { RIGHT, LEFT, TOP, BOTTOM } from "../../constants";
+import Pacman from "../../Components/Game/Pacman";
 
 export const checkWall = (
   pos: any,
@@ -24,6 +25,18 @@ export const checkWall = (
   if ((top === 17 && left === -1) || (top === 17 && left === 30)) {
     return true;
   }
+  if (pos.top % 1 === 0 && pos.left % 1 === 0) {
+    switch (degree) {
+      case TOP:
+        return tiles[pos.top - 1][pos.left].state !== 1;
+      case LEFT:
+        return tiles[pos.top][pos.left - 1].state !== 1;
+      case BOTTOM:
+        return tiles[pos.top + 1][pos.left].state !== 1;
+      case RIGHT:
+        return tiles[pos.top][pos.left + 1].state !== 1;
+    }
+  }
   if (
     top < 0 ||
     top > 34 ||
@@ -43,7 +56,7 @@ export const movePlayer = (pacman: IPacman, tiles: Tile[][], dispatch: any) => {
       pacman = {
         top: 17,
         left: 29,
-        degree: 180,
+        degree: LEFT,
       };
       dispatch(setPacman(pacman));
       dispatch(resetCounter());
@@ -51,12 +64,12 @@ export const movePlayer = (pacman: IPacman, tiles: Tile[][], dispatch: any) => {
       pacman = {
         top: 17,
         left: 0,
-        degree: 0,
+        degree: RIGHT,
       };
-      setPacman(pacman);
+      dispatch(setPacman(pacman));
       dispatch(resetCounter());
     } else {
-      dispatch(movePacman());
+      dispatch(movePacman(tiles));
     }
   }
 };

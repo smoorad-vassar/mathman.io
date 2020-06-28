@@ -1,6 +1,8 @@
 export const setBlinkyDegree = (degree: number) => {
-    return{
-        type: "setBlinkyDegree",
-        payload: {degree},
-    }
-}
+  return {
+    type: "setBlinkyDegree",
+    payload: {
+      degree,
+    },
+  };
+};

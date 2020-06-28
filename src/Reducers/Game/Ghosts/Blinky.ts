@@ -5,13 +5,13 @@ const blinkyReducer = (state = Blinky, action: any) => {
   switch (action.type) {
     case "moveBlinky":
       switch (state.degree) {
-        case 0:
+        case RIGHT:
           return { ...state, left: +(state.left + 1 / 20).toFixed(2) };
-        case 90:
+        case TOP:
           return { ...state, top: +(state.top + 1 / 20).toFixed(2) };
-        case 180:
+        case LEFT:
           return { ...state, left: +(state.left - 1 / 20).toFixed(2) };
-        case 270:
+        case BOTTOM:
           return { ...state, top: +(state.top + 1 / 20).toFixed(2) };
       }
     case "changeDirection":
@@ -20,25 +20,25 @@ const blinkyReducer = (state = Blinky, action: any) => {
           return {
             ...state,
             left: +(state.left + 1 / 20).toFixed(2),
-            degree: 0,
+            degree: RIGHT,
           };
         case LEFT:
           return {
             ...state,
             left: +(state.left - 1 / 20).toFixed(2),
-            degree: 180,
+            degree: LEFT,
           };
         case TOP:
           return {
             ...state,
             top: +(state.top - 1 / 20).toFixed(2),
-            degree: 270,
+            degree: TOP,
           };
         case BOTTOM:
           return {
             ...state,
             top: +(state.top + 1 / 20).toFixed(2),
-            degree: 90,
+            degree: BOTTOM,
           };
       }
     default:

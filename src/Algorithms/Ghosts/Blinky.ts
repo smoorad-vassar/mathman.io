@@ -10,6 +10,23 @@ function heuristic(start: Tile, end: Tile) {
 
 export default function BlinkyAStar(props: IBlinkyPFProps): number {
   var openSet = new BinaryHeap();
+  var blinkyTop = props.blinky.top;
+  var blinkyLeft = props.blinky.left;
+
+  switch (props.blinky.degree) {
+    case TOP:
+      blinkyTop = Math.floor(blinkyTop);
+      break;
+    case BOTTOM:
+      blinkyTop = Math.ceil(blinkyTop);
+      break;
+    case LEFT:
+      blinkyLeft = Math.floor(blinkyLeft);
+      break;
+    case RIGHT:
+      blinkyLeft = Math.ceil(blinkyLeft);
+      break;
+  }
 
   var start = props.start;
   var cur_tile = props.start;
@@ -27,8 +44,8 @@ export default function BlinkyAStar(props: IBlinkyPFProps): number {
         current = current.previous !== undefined ? current.previous : current;
         rtn.push(current);
       }
-      var top = rtn[rtn.length - 1].top - props.blinky.top;
-      var left = rtn[rtn.length - 1].left - props.blinky.left;
+      var top = rtn[rtn.length - 1].top - blinkyTop;
+      var left = rtn[rtn.length - 1].left - blinkyLeft;
       if (top === 1) {
         return BOTTOM;
       } else if (top === -1) {
