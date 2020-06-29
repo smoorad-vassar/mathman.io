@@ -16,8 +16,7 @@ export const counterLogic = (
   tiles: Tile[][],
   blinky: IGhost,
   blinkyDegree: number,
-  dispatch: any,
-  bool: boolean
+  dispatch: any
 ) => {
   dispatch(incrementCounter());
   // try {
@@ -27,13 +26,8 @@ export const counterLogic = (
   // } catch {}
   if (counter === 0) {
     // dispatch(changeBlinkyDirection(blinkyDegree));
-    console.log(pacman.top, pacman.left);
     if (tiles[pacman.top][pacman.left].state === 2) {
       dispatch(eatDot(pacman.top, pacman.left));
-    }
-    if (player !== pacman.degree) {
-      bool = false;
-      dispatch(changeDirection(player, tiles));
     }
   }
   // if (counter === 1) {
@@ -78,6 +72,9 @@ export const counterLogic = (
   //   dispatch(setBlinkyDegree(degree));
   // }
   if (counter === 19) {
+    if (player !== pacman.degree) {
+      dispatch(changeDirection(player, tiles));
+    }
     dispatch(resetCounter());
   }
 };

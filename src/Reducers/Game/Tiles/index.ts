@@ -5,7 +5,6 @@ const tilesReducer = (state = tiles, action: any) => {
     case "eat":
       var newState = [...state];
       newState[action.payload.top][action.payload.left].state = 0;
-      console.log(newState[action.payload.top][action.payload.left].state)
       return newState;
     case "clear":
       var newState = [...state];

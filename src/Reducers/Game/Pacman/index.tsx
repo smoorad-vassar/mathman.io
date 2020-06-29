@@ -21,25 +21,21 @@ const pacmanReducer = (state = Pacman, action: any) => {
         case RIGHT:
           return {
             ...state,
-            left: +(state.left + 1 / 20).toFixed(2),
             degree: RIGHT,
           };
         case LEFT:
           return {
             ...state,
-            left: +(state.left - 1 / 20).toFixed(2),
             degree: LEFT,
           };
         case TOP:
           return {
             ...state,
-            top: +(state.top - 1 / 20).toFixed(2),
             degree: TOP,
           };
         case BOTTOM:
           return {
             ...state,
-            top: +(state.top + 1 / 20).toFixed(2),
             degree: BOTTOM,
           };
         default:

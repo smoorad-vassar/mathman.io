@@ -12,6 +12,7 @@ import { moveGhost } from "../../../Logic/Game/Blinky";
 import { checkTurn } from "../../../Logic/Game/Player";
 import { RIGHT, LEFT, TOP, BOTTOM } from "../../../constants";
 import { setNextDirection } from "../../../Actions/Game/Player";
+import { changeDirection } from "../../../Actions/Game/Pacman";
 
 function Tiles(): JSX.Element {
   const tiles: Tile[][] = useSelector(
@@ -62,7 +63,6 @@ function Tiles(): JSX.Element {
   React.useEffect(() => {
     const interval = setInterval(() => {
       // moveGhost(blinky, tiles, dispatch);
-      var bool = true;
       counterLogic(
         counter,
         pacman,
@@ -70,12 +70,9 @@ function Tiles(): JSX.Element {
         tiles,
         blinky,
         blinkyDegree,
-        dispatch,
-        bool
+        dispatch
       );
-      if (bool) {
-        movePlayer(pacman, tiles, dispatch);
-      }
+      movePlayer(pacman, tiles, dispatch);
     }, 1000 / 60);
     return () => clearInterval(interval);
   });

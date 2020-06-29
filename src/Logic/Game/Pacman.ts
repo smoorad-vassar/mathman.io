@@ -68,8 +68,7 @@ export const movePlayer = (pacman: IPacman, tiles: Tile[][], dispatch: any) => {
       };
       dispatch(setPacman(pacman));
       dispatch(resetCounter());
-    } else {
-      dispatch(movePacman(tiles));
     }
+    dispatch(movePacman(tiles));
   }
 };
