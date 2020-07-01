@@ -8,6 +8,7 @@ import { incrementCounter, resetCounter } from "../../Actions/Game/Counter";
 import { changeDirection } from "../../Actions/Game/Pacman";
 import { RIGHT, LEFT, TOP, BOTTOM } from "../../constants";
 import { setBlinkyDegree } from "../../Actions/Game/BlinkyDirection";
+import { movePlayer } from "./Pacman";
 
 export const counterLogic = (
   counter: number,
@@ -19,6 +20,7 @@ export const counterLogic = (
   dispatch: any
 ) => {
   dispatch(incrementCounter());
+  console.log(counter);
   // try {
   //   if (tiles[pacman.top][pacman.left].state === 2) {
   //     console.log(counter);
@@ -30,6 +32,7 @@ export const counterLogic = (
       dispatch(eatDot(pacman.top, pacman.left));
     }
   }
+  console.log(counter);
   // if (counter === 1) {
   //   var pacTop = pacman.top;
   //   var pacLeft = pacman.left;
@@ -71,10 +74,14 @@ export const counterLogic = (
   //   });
   //   dispatch(setBlinkyDegree(degree));
   // }
-  if (counter === 19) {
+  if (counter === 20) {
     if (player !== pacman.degree) {
+      // remove tiles from here
       dispatch(changeDirection(player, tiles));
     }
     dispatch(resetCounter());
+  } else {
+    movePlayer(pacman, tiles, dispatch);
   }
+  console.log(counter);
 };

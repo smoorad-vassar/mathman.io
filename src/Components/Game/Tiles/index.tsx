@@ -15,10 +15,10 @@ import { setNextDirection } from "../../../Actions/Game/Player";
 import { changeDirection } from "../../../Actions/Game/Pacman";
 
 function Tiles(): JSX.Element {
+  const dispatch = useDispatch();
   const tiles: Tile[][] = useSelector(
     (state: RootStateOrAny) => state.tilesReducer
   );
-  const dispatch = useDispatch();
   const pacman: IPacman = useSelector(
     (state: RootStateOrAny) => state.pacmanReducer
   );
@@ -72,7 +72,6 @@ function Tiles(): JSX.Element {
         blinkyDegree,
         dispatch
       );
-      movePlayer(pacman, tiles, dispatch);
     }, 1000 / 60);
     return () => clearInterval(interval);
   });
