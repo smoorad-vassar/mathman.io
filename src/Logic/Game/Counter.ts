@@ -1,14 +1,15 @@
-import { eatDot } from "../../Actions/Game/Tiles";
-import { moveBlinky, changeBlinkyDirection } from "../../Actions/Game/Blinky";
-import { setNextDirection } from "../../Actions/Game/Player";
-import BlinkyAStar from "../../Algorithms/Ghosts/Blinky";
+import { eatDot, clearAllTiles } from "../../Actions/Game/Tiles";
+import { changeBlinkyDirection, moveBlinky } from "../../Actions/Game/Blinky";
+import BlinkyAlgo from "../../Algorithms/Ghosts/Blinky";
 import { IPacman, IGhost } from "../../Interfaces";
 import Tile from "../../Components/Game/Tiles/Tile";
 import { incrementCounter, resetCounter } from "../../Actions/Game/Counter";
-import { changeDirection } from "../../Actions/Game/Pacman";
+import { changePacmanDirection } from "../../Actions/Game/Pacman";
 import { RIGHT, LEFT, TOP, BOTTOM } from "../../constants";
 import { setBlinkyDegree } from "../../Actions/Game/BlinkyDirection";
-import { movePlayer } from "./Pacman";
+import { movePlayer, checkWall } from "./Pacman";
+import { moveGhost } from "./Blinky";
+import { checkTurn } from "./Player";
 
 export const counterLogic = (
   counter: number,
@@ -20,68 +21,35 @@ export const counterLogic = (
   dispatch: any
 ) => {
   dispatch(incrementCounter());
-  console.log(counter);
-  // try {
-  //   if (tiles[pacman.top][pacman.left].state === 2) {
-  //     console.log(counter);
-  //   }
-  // } catch {}
   if (counter === 0) {
-    // dispatch(changeBlinkyDirection(blinkyDegree));
     if (tiles[pacman.top][pacman.left].state === 2) {
       dispatch(eatDot(pacman.top, pacman.left));
     }
+    dispatch(clearAllTiles());
   }
-  console.log(counter);
-  // if (counter === 1) {
-  //   var pacTop = pacman.top;
-  //   var pacLeft = pacman.left;
-  //   switch (pacman.degree) {
-  //     case TOP:
-  //       pacTop = Math.floor(pacTop);
-  //       break;
-  //     case BOTTOM:
-  //       pacTop = Math.ceil(pacTop);
-  //       break;
-  //     case LEFT:
-  //       pacLeft = Math.floor(pacLeft);
-  //       break;
-  //     case RIGHT:
-  //       pacLeft = Math.ceil(pacLeft);
-  //       break;
-  //   }
-  //   var blinkyTop = blinky.top;
-  //   var blinkyLeft = blinky.left;
-  //   switch (blinky.degree) {
-  //     case TOP:
-  //       blinkyTop = Math.floor(blinkyTop);
-  //       break;
-  //     case BOTTOM:
-  //       blinkyTop = Math.ceil(blinkyTop);
-  //       break;
-  //     case LEFT:
-  //       blinkyLeft = Math.floor(blinkyLeft);
-  //       break;
-  //     case RIGHT:
-  //       blinkyLeft = Math.ceil(blinkyLeft);
-  //       break;
-  //   }
-  //   var degree = BlinkyAStar({
-  //     start: tiles[blinkyTop][blinkyLeft],
-  //     tiles: tiles,
-  //     target: tiles[pacTop][pacLeft],
-  //     blinky: blinky,
-  //   });
-  //   dispatch(setBlinkyDegree(degree));
-  // }
+  if (counter === 1) {
+    var deg = BlinkyAlgo(blinky, pacman, tiles);
+    console.log("deg", deg, blinky.top, blinky.left);
+    if (checkTurn(blinky, deg, tiles)) {
+      dispatch(setBlinkyDegree(deg));
+    }
+  }
   if (counter === 20) {
     if (player !== pacman.degree) {
       // remove tiles from here
-      dispatch(changeDirection(player, tiles));
+      dispatch(changePacmanDirection(player, tiles));
+    }
+    if (blinkyDegree !== blinky.degree) {
+      dispatch(changeBlinkyDirection(blinkyDegree));
     }
     dispatch(resetCounter());
   } else {
-    movePlayer(pacman, tiles, dispatch);
+    if (checkWall(pacman, tiles)) {
+      movePlayer(pacman, dispatch);
+    }
+    if (checkWall(blinky, tiles)) {
+      // console.log(blinky.degree);
+      moveGhost(blinky, dispatch);
+    }
   }
-  console.log(counter);
 };

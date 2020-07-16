@@ -6,13 +6,10 @@ import Pacman from "../Pacman";
 import Blinky from "../Ghosts/Blinky/Blinky";
 import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { IPacman, IGhost } from "../../../Interfaces";
-import { movePlayer, checkWall } from "../../../Logic/Game/Pacman";
 import { counterLogic } from "../../../Logic/Game/Counter";
-import { moveGhost } from "../../../Logic/Game/Blinky";
 import { checkTurn } from "../../../Logic/Game/Player";
 import { RIGHT, LEFT, TOP, BOTTOM } from "../../../constants";
 import { setNextDirection } from "../../../Actions/Game/Player";
-import { changeDirection } from "../../../Actions/Game/Pacman";
 
 function Tiles(): JSX.Element {
   const dispatch = useDispatch();
@@ -31,8 +28,8 @@ function Tiles(): JSX.Element {
   const player: number = useSelector(
     (state: RootStateOrAny) => state.playerReducer
   );
-  const blinkyDegree: number = useSelector(
-    (state: RootStateOrAny) => state.blinkyReducerDirection
+  const blinkyDirection: number = useSelector(
+    (state: RootStateOrAny) => state.blinkyDirectionReducer
   );
 
   const displayGrid = tiles.map((tilesRow) => (
@@ -62,14 +59,13 @@ function Tiles(): JSX.Element {
 
   React.useEffect(() => {
     const interval = setInterval(() => {
-      // moveGhost(blinky, tiles, dispatch);
       counterLogic(
         counter,
         pacman,
         player,
         tiles,
         blinky,
-        blinkyDegree,
+        blinkyDirection,
         dispatch
       );
     }, 1000 / 60);
@@ -120,7 +116,7 @@ function Tiles(): JSX.Element {
   return (
     <div className="grid">
       <Pacman top={pacman.top} left={pacman.left} degree={pacman.degree} />
-      {/* <Blinky top={blinky.top} left={blinky.left} degree={blinky.degree} /> */}
+      <Blinky top={blinky.top} left={blinky.left} degree={blinky.degree} />
       {displayGrid}
     </div>
   );

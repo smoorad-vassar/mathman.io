@@ -1,17 +1,13 @@
 import { IPacman } from "../../Interfaces";
 import Tile from "../../Components/Game/Tiles/Tile";
 
-export const movePacman = (tiles: Tile[][]) => {
+export const movePacman = () => {
   return {
     type: "move",
-    payload: {
-      tiles,
-    },
   };
 };
 
-export const changeDirection = (degree: number, tiles: Tile[][]) => {
-  console.log(degree);
+export const changePacmanDirection = (degree: number, tiles: Tile[][]) => {
   return {
     type: "changeDirectionPacman",
     payload: {

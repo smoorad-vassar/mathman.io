@@ -1,23 +1,40 @@
 import Tile from "../../Components/Game/Tiles/Tile";
 import { movePacman, setPacman } from "../../Actions/Game/Pacman";
-import { resetCounter } from "../../Actions/Game/Counter";
 import { IPacman } from "../../Interfaces";
 import { RIGHT, LEFT, TOP, BOTTOM } from "../../constants";
-import Pacman from "../../Components/Game/Pacman";
+import { HEIGHT, WIDTH } from "../../constants";
 
-export const checkWall = (
-  pos: any,
-  degree: number,
-  tiles: Tile[][]
-): boolean => {
-  let top = pos.top;
-  let left = pos.left;
-  if (degree === TOP || degree === LEFT) {
-    top = Math.floor(pos.top);
-    left = Math.floor(pos.left);
-  } else if (degree === RIGHT || degree === BOTTOM) {
-    top = Math.ceil(pos.top);
-    left = Math.ceil(pos.left);
+export const checkBorders = (pacman: IPacman) => {
+  return (
+    pacman.top > 0 &&
+    pacman.left > 0 &&
+    pacman.top < HEIGHT &&
+    pacman.left < WIDTH
+  );
+};
+
+export const checkWall = (pacman: IPacman, tiles: Tile[][]): boolean => {
+  if (pacman.top % 1 === 0 && pacman.left % 1 === 0 && checkBorders(pacman)) {
+    switch (pacman.degree) {
+      case TOP:
+        return tiles[pacman.top - 1][pacman.left].state !== 1;
+      case LEFT:
+        return tiles[pacman.top][pacman.left - 1].state !== 1;
+      case BOTTOM:
+        return tiles[pacman.top + 1][pacman.left].state !== 1;
+      case RIGHT:
+        return tiles[pacman.top][pacman.left + 1].state !== 1;
+    }
+  }
+  // clean this mess up later
+  let top = pacman.top;
+  let left = pacman.left;
+  if (pacman.degree === TOP || pacman.degree === LEFT) {
+    top = Math.floor(pacman.top);
+    left = Math.floor(pacman.left);
+  } else if (pacman.degree === RIGHT || pacman.degree === BOTTOM) {
+    top = Math.ceil(pacman.top);
+    left = Math.ceil(pacman.left);
   }
   if (top === 16 && (left === 14 || left === 15)) {
     return false;
@@ -25,50 +42,34 @@ export const checkWall = (
   if ((top === 17 && left === -1) || (top === 17 && left === 30)) {
     return true;
   }
-  if (pos.top % 1 === 0 && pos.left % 1 === 0) {
-    switch (degree) {
-      case TOP:
-        return tiles[pos.top - 1][pos.left].state !== 1;
-      case LEFT:
-        return tiles[pos.top][pos.left - 1].state !== 1;
-      case BOTTOM:
-        return tiles[pos.top + 1][pos.left].state !== 1;
-      case RIGHT:
-        return tiles[pos.top][pos.left + 1].state !== 1;
-    }
-  }
-  if (
-    top < 0 ||
-    top > 34 ||
-    left < 0 ||
-    left > 29 ||
-    tiles[top][left].state === 1
-  ) {
+  if (tiles[top][left].state === 1) {
+    console.log(pacman.top, pacman.left);
     return false;
   } else {
     return true;
   }
 };
 
-export const movePlayer = (pacman: IPacman, tiles: Tile[][], dispatch: any) => {
-  if (checkWall(pacman, pacman.degree, tiles)) {
-    if (pacman.top === 17 && pacman.left === 0) {
-      pacman = {
-        top: 17,
-        left: 29,
-        degree: LEFT,
-      };
-      dispatch(setPacman(pacman));
-      dispatch(resetCounter());
-    } else if (pacman.top === 17 && pacman.left === 29) {
-      pacman = {
-        top: 17,
-        left: 0,
-        degree: RIGHT,
-      };
-      dispatch(setPacman(pacman));
-      dispatch(resetCounter());
-    }
-    dispatch(movePacman(tiles));
+export const movePlayer = (pacman: IPacman, dispatch: any) => {
+  if (pacman.top === 17 && pacman.left === -0.45 && pacman.degree === LEFT) {
+    pacman = {
+      top: 17,
+      left: 29.5,
+      degree: LEFT,
+    };
+    dispatch(setPacman(pacman));
+  } else if (
+    pacman.top === 17 &&
+    pacman.left === 29.45 &&
+    pacman.degree === RIGHT
+  ) {
+    pacman = {
+      top: 17,
+      left: -0.5,
+      degree: RIGHT,
+    };
+    dispatch(setPacman(pacman));
+  } else {
+    dispatch(movePacman());
   }
 };

@@ -28,15 +28,11 @@
 .final__ghost {
   position: relative;
   z-index: 110;
-  height: 1em;
-  width: 1em;
+  height: 0;
+  width: 0;
   background-color: green;
   display: block;
-  margin-top: -1em;
   border-top-left-radius: 0.5em;
   border-top-right-radius: 0.5em;
 }
 /* using these for eyes*/
-
-
- 

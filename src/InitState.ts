@@ -1,7 +1,7 @@
 import { IPacman, IGhost } from "./Interfaces";
 
 export const Pacman: IPacman = {
-  top: 21,
+  top: 2,
   left: 15,
   degree: 180,
 };
